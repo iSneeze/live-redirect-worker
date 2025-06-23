@@ -1,0 +1,36 @@
+[package]
+name = "live-redirect-worker"
+version = "0.1.0"
+edition = "2021"
+authors = [ "iSneeze <yeetallthespam@gmail.com>" ]
+
+[package.metadata.release]
+release = false
+
+# https://github.com/rustwasm/wasm-pack/issues/1247
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+cfg-if = "1.0"
+worker = "0.5.0"
+worker-macros = { version="0.5.0", features=['http'] }
+console_error_panic_hook = { version = "0.1.7", optional = true }
+
+# web scraping
+reqwest = { version = "0.12", features = ["json"] }
+scraper = "0.23"
+url = "2.5"
+anyhow = "1.0"
+wee_alloc = { version = "0.4", optional = true } # fix memory alloc
+
+[features]
+default = ["console_error_panic_hook", "wee_alloc"]
+
+[profile.release]
+lto = true
+opt-level = 's'
+debug = false
