@@ -4,3 +4,6 @@ compatibility_date = "2025-06-07"
 
 [build]
 command = "cargo install -q worker-build && ~/.cargo/bin/worker-build --release"
+
+[observability.logs]
+enabled = true
